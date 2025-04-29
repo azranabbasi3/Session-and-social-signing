@@ -22,18 +22,18 @@ app.use(cors({
 }));
 
 app.use(session({
-  secret: 'abc*1234X', 
-  resave: false,            
-  saveUninitialized: false,  
+  secret: process.env.SESSION_SECRET || 'abc*1234X',
+  resave: false,
+  saveUninitialized: false,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000,
-    secure: false,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     httpOnly: true
   }
 }));
 
-// Initialize passport
+// Initialize passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
