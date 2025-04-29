@@ -4,8 +4,13 @@ const dotenv = require("dotenv");
 const router = require("./routes/routes");
 const app = express();
 const cors = require("cors");
-const session = require('express-session')
+const session = require('express-session');
+const passport = require('passport');
+
 dotenv.config();
+
+// Passport configuration
+require('./config/passport');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,10 +33,13 @@ app.use(session({
   }
 }));
 
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 connectDB();
 
 app.use("/api", router);
-
 
 app.listen(5000, () => {
   console.log(`Server is running on port 5000`);

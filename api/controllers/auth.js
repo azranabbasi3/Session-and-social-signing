@@ -48,7 +48,6 @@ const logout = async (req, res) => {
       return res.status(500).json({ message: "Session error" });
     }
     res.clearCookie("connect.sid");
-
     res.json({ message: "Logout successful" });
   });
 };
