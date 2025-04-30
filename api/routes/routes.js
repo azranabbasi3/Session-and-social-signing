@@ -1,12 +1,13 @@
 const express = require("express");
 const { login, register, profile, logout } = require("../controllers/auth");
 const passport = require("passport");
+const { default: checkSession } = require("../middleware/auth");
 const router = express.Router();
 
 // Auth routes
 router.post("/login", login);
 router.post("/register", register);
-router.get("/profile", profile);
+router.get("/profile", checkSession, profile);
 router.post("/logout", logout);
 
 router.get(
